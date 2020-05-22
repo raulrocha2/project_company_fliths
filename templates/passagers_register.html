@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+	{% block body%}
+	<title>Register Flights </title>
+
+	<h1>Registerd you Flight</h1>
+	<form action="/imput-passengers", method="POST">
+		<select class="form-control" name="flight_id" >
+		 	{% for flight in flights %}
+		  		<option value="{{ flight.id }}"> {{ flight.origin }} to {{ flight.destination }} </option> 
+		  		<li> Origin: {{ flight.origin }} </li>
+				<li> destinatio: {{ flight.destination }} </li>
+				<li> Duration: {{ flight.duration }} </li>
+		  	{% endfor %}
+		</select>
+			
+		<h3>Your Name</h3>
+		<input type="text" name="Name" class="form-control" placeholder="Passengers Name">
+		<h3></h3>
+		<button type="submit" class="btn btn-primary"> 
+		Save </button>
+		
+	</form>
+
+	{% endblock %}

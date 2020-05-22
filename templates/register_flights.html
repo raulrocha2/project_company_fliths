@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
+{% extends "base.html"%}
+	{% block body%}
 	<title> Register Flights </title>
-</head>
-<body>
+
+
 	<h1>Register New Flights </h1>
 	<h3>origin</h3>
 	<form action="/imput-flights", method="POST">
@@ -16,5 +15,4 @@
 		<button type="submit" class="btn btn-primary"> 
 		Save </button>
 	</form>
-</body>
-</html>
+	{% endblock %}

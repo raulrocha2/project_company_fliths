@@ -89,3 +89,11 @@ h2{
 	background-color:rgba(0, 0, 0, 0.5);
 	padding: 80px 0 80px 0;
 }
+
+#principal_base{
+	
+	clear:both;
+	background-size:100%;
+	min-height: 400px;
+	
+}
