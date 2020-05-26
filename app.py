@@ -22,7 +22,12 @@ class Passengers(db.Model):
 	name = db.Column(db.String)
 	flight_id = db.Column(db.Integer)
 
+# Conn TABLE USER_LOGIN
 
+class Logins(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	user = db.Column(db.String)
+	password = db.Column(db.String)
 #conn = sqlite3.connect('airport.db')
 #cursor = conn.cursor()
 
@@ -73,7 +78,7 @@ def passengers_regist_db():
 	passengers_register = Passengers(name=request.form['Name'], flight_id=request.form['flight_id'])
 	db.session.add(passengers_register)
 	db.session.commit()
-	return 'save'
+	return render_template("passagers_register.html")
 
 
 
@@ -83,6 +88,25 @@ def delete(id):
 	db.session.commit()
 	return redirect(url_for('homepage'))
 
+
+#LOGIN USER 
+@app.route("/login")
+def login_site():
+	users = Logins.query.all()
+	return render_template("login.html", users=users)
+
+@app.route("/imput_login", methods=['POST'])	
+def login_ok():
+	p1=request.form['User_form']
+	p2=request.form['Password_form']
+	user_ = Logins.query.filter_by(user=p1)
+	password_ = Logins.query.filter_by(password=p2)
+	for i_user in user_:
+		for i_password in password_:
+			if i_user.id == i_password.id :
+				return redirect(url_for('homepage'))
+	
+	return render_template("login.html")	
 #conn.close()
  
 if (__name__ == "__main__"):

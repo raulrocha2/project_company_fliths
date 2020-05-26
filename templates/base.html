@@ -2,32 +2,32 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-	<h2> FLIGTHS LINE FREE </h2>
+	<h2 id="title-menu"> FLIGTHS LINE FREE </h2>
 </head>
 <body>
 
 	<head>
 		<div class="contanier">
 			<div id="logo">
-				<img src="{{ url_for('static', filename='img/logo.png') }}">
+				<img src="{{ url_for('static', filename='img/logo2.png') }}">
 			</div>
 			<div id="menu">
 				<a href="/">HOME</a>
-				<a href="flights">FLIGHTS</a>
-				<a href="register">REGISTER FLIGHTS</a>
-				<a href="passengers">REGISTER PASSAGERS</a>
+				<a href="{{ url_for('flights_registered_db')}}">FLIGHTS</a>
+				<a href="{{ url_for('register')}}">REGISTER FLIGHTS</a>
+				<a href="{{ url_for('passagers_view')}}">REGISTER PASSAGERS</a>
 			</div>
 		</div>
 	</head>
 	<div id="principal_base">
-		<div class="efeito">
-			<div class="contanier">
-				<body>
-				
+		
+		<div class="contanier">
+			<div class="box">
+			
 				{% block body%}
 				{% endblock %}
-				</body>
 			</div>
+		
 		</div>
 	</div>
 	<footer> corpyright by flygths line free </footer>
