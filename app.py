@@ -1,5 +1,5 @@
 import sqlite3
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -19,15 +19,15 @@ class Flights(db.Model):
 # Con TABLE PASSAGERS 
 class Passengers(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String)
+	name = db.Column(db.String, nullable=True)
 	flight_id = db.Column(db.Integer)
 
 # Conn TABLE USER_LOGIN
 
 class Logins(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	user = db.Column(db.String)
-	password = db.Column(db.String)
+	user = db.Column(db.String, nullable=True)
+	password = db.Column(db.String, nullable=True)
 #conn = sqlite3.connect('airport.db')
 #cursor = conn.cursor()
 
@@ -99,14 +99,38 @@ def login_site():
 def login_ok():
 	p1=request.form['User_form']
 	p2=request.form['Password_form']
-	user_ = Logins.query.filter_by(user=p1)
-	password_ = Logins.query.filter_by(password=p2)
+	user_ = Logins.query.filter_by(user=p1).all()
+	password_ = Logins.query.filter_by(password=p2).all()
 	for i_user in user_:
 		for i_password in password_:
 			if i_user.id == i_password.id :
 				return redirect(url_for('homepage'))
 	
-	return render_template("login.html")	
+	return render_template("login.html")
+
+
+@app.route("/api/flights/<int:flight_id>")
+def  flights_api(flight_id):
+	 # Make sure flights Exists.
+	flights = Flights.query.get(flight_id)
+	if flights is None:
+		return jsonify({"error": "Flight Invalid"}), 422
+
+	# get all passagers
+	
+	passengers = Passengers.query.filter_by(flight_id=flight_id).all()
+	names = []
+	for passenger in passengers:
+		names.append(passenger.name)
+	return jsonify({
+		"origin": flights.origin,
+		"destination": flights.destination,
+		"duration": flights.duration,
+		"passenger": names
+
+		})		
+
+
 #conn.close()
  
 if (__name__ == "__main__"):
