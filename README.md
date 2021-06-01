@@ -1,4 +1,4 @@
-##Project Company Flights for course EDX CS50
+## Project Company Flights for course EDX CS50
 
 I created this project for course EDX CS50's Web Programming with Python and JavaScript.
 The challenge was build a site for register passengers and flights. So that the ariline can have the flight records with passenger data and origin and destination of the trip.
